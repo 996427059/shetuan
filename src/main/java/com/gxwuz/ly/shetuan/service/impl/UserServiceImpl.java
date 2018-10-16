@@ -54,4 +54,9 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll(PageRequest.of(page, pageSize));
     }
 
+    @Override
+    public Long count() {
+        return userRepository.count();
+    }
+
 }

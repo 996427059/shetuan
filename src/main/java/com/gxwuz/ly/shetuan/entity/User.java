@@ -6,16 +6,17 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "user")
 @JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"})
-public class User implements Serializable {
+public class User extends BaseModel{
     @Id
     private String stuNo;
+
     @Column
     private String fullName;
+
     @Column
     private String pwd;
 

@@ -20,4 +20,6 @@ public interface BaseService<T> {
     List<T> getAll();
 
     Page<T> getListByPage(Integer page, Integer pageSize);
+
+    Long count();
 }
