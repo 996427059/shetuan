@@ -2,10 +2,8 @@ package com.gxwuz.ly.shetuan.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -19,6 +17,10 @@ public class User extends BaseModel{
 
     @Column
     private String pwd;
+
+    @OneToMany(cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "stuNo")
+    private Set<Permission> permission;
 
     public String getStuNo() {
         return stuNo;
@@ -42,5 +44,13 @@ public class User extends BaseModel{
 
     public void setPwd(String pwd) {
         this.pwd = pwd;
+    }
+
+    public Set<Permission> getPermission() {
+        return permission;
+    }
+
+    public void setPermission(Set<Permission> permission) {
+        this.permission = permission;
     }
 }

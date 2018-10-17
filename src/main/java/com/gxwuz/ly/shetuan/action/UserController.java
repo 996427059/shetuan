@@ -15,12 +15,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class UserController extends BaseController {
 
     @Autowired
     UserService userService;
 
-    Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @RequestMapping("/add")
     public ResponseData<User> add(User user){

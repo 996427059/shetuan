@@ -8,11 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.List;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -59,4 +61,8 @@ public class UserServiceImpl implements UserService {
         return userRepository.count();
     }
 
+    @Override
+    public User login(String stuNo, String pwd) {
+        return userRepository.findUserByStuNoAndPwd(stuNo,pwd);
+    }
 }
