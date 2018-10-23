@@ -89,7 +89,7 @@ public class UserController extends BaseController {
     public ResponseData<User> getUsersByPage(Integer page, Integer pageSize) {
         ResponseData<User> response = new ResponseData<>();
         try {
-            Page<User> users =  userService.getListByPage(page, pageSize);
+            Page<User> users =  userService.getListByPage(page-1, pageSize);
             response.setCode(1);
             response.setDatas(users);
             response.setMsg("查询成功!");

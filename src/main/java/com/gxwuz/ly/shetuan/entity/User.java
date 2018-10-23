@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import java.util.Set;
 
+/**
+ *   用户
+ */
 @Entity
 @Table(name = "user")
 @JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"})
@@ -18,9 +21,17 @@ public class User extends BaseModel{
     @Column
     private String pwd;
 
-    @OneToMany(cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "stuNo")
-    private Set<Permission> permission;
+    private PersonInfo info;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "stuNo")
+    private Set<Permission> permission;      // 该用户所有的角色
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shetuanId")
+    private Set<Shetuan> joins;                //该用户参加过的社团
 
     public String getStuNo() {
         return stuNo;
@@ -52,5 +63,13 @@ public class User extends BaseModel{
 
     public void setPermission(Set<Permission> permission) {
         this.permission = permission;
+    }
+
+    public Set<Shetuan> getJoins() {
+        return joins;
+    }
+
+    public void setJoins(Set<Shetuan> joins) {
+        this.joins = joins;
     }
 }

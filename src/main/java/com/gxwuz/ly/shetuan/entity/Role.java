@@ -1,15 +1,17 @@
 package com.gxwuz.ly.shetuan.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+/**
+ *   角色类
+ *
+ */
 @Entity
 @Table(name = "role")
 public class Role extends BaseModel {
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer roleId;
 
     @Column

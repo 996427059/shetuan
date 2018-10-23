@@ -17,13 +17,14 @@ public class LoginController extends BaseController {
     UserService userService;
 
     @RequestMapping("/login")
-    public ResponseData<User> login(String stuNo, String pwd) {
+    public ResponseData<User> login(String stuNo, String pwd, User u) {
 
         logger.info("我我我登录-----");
         ResponseData<User> response = new ResponseData<>();
         try {
             List<User> users = new ArrayList<>();
             User user =  userService.login(stuNo, pwd);
+            logger.info("查询结果"+stuNo + " "+ pwd + " " +u);
             if (user != null) {
                 users.add(user);
                 response.setCode(1);

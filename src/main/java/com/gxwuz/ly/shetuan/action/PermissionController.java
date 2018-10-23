@@ -1,10 +1,12 @@
 package com.gxwuz.ly.shetuan.action;
 
+import com.gxwuz.ly.shetuan.entity.Permission;
+import com.gxwuz.ly.shetuan.entity.PermissionKey;
 import com.gxwuz.ly.shetuan.entity.ResponseData;
-import com.gxwuz.ly.shetuan.entity.Role;
-import com.gxwuz.ly.shetuan.service.RoleService;
+import com.gxwuz.ly.shetuan.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,20 +14,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/role")
-public class RoleController extends BaseController {
+@RequestMapping("/permission")
+public class PermissionController {
 
     @Autowired
-    RoleService roleService;
+    PermissionService permissionService;
 
     @RequestMapping("/add")
-    public ResponseData<Role> add(Role role) {
-        ResponseData<Role> response = new ResponseData<>();
+    public ResponseData<Permission> add(String stuNo, Integer roleId) {
+        ResponseData<Permission> response = new ResponseData<>();
         try {
-            roleService.save(role);
+            Permission permission = new Permission();
+            permission.setId(new PermissionKey(stuNo,roleId));
+            permissionService.save(permission);
             response.setCode(1);
             response.setMsg("保存成功!");
-        } catch (Exception e){
+        } catch (Exception e) {
             response.setCode(0);
             response.setMsg("保存出错!");
             e.printStackTrace();
@@ -34,10 +38,10 @@ public class RoleController extends BaseController {
     }
 
     @RequestMapping("/delete")
-    public ResponseData<Role> delete(Integer roleId) {
-        ResponseData<Role> response = new ResponseData<>();
+    public ResponseData<Permission> delete(Integer permissonId) {
+        ResponseData<Permission> response = new ResponseData<>();
         try {
-            roleService.delete(roleId);
+            permissionService.delete(permissonId);
             response.setCode(1);
             response.setMsg("删除成功!");
         } catch (Exception e) {
@@ -50,10 +54,10 @@ public class RoleController extends BaseController {
 
 
     @RequestMapping("/update")
-    public ResponseData<Role> update(Role role) {
-        ResponseData<Role> response = new ResponseData<>();
+    public ResponseData<Permission> update(Permission permission) {
+        ResponseData<Permission> response = new ResponseData<>();
         try {
-            roleService.update(role);
+            permissionService.update(permission);
             response.setCode(1);
             response.setMsg("修改成功!");
         } catch (Exception e) {
@@ -65,14 +69,14 @@ public class RoleController extends BaseController {
     }
 
     @RequestMapping("/get")
-    public ResponseData<Role> get(Integer roleId) {
-        ResponseData<Role> response = new ResponseData<>();
+    public ResponseData<Permission> get(Integer permissionId) {
+        ResponseData<Permission> response = new ResponseData<>();
         try {
-            List<Role> roles = new ArrayList<>();
-            Role role =  roleService.get(roleId);
-            roles.add(role);
+            List<Permission> permissions = new ArrayList<>();
+            Permission permission =  permissions.get(permissionId);
+            permissions.add(permission);
             response.setCode(1);
-            response.setDatas(roles);
+            response.setDatas(permissions);
             response.setMsg("查询成功!");
         } catch (Exception e) {
             response.setCode(0);
@@ -83,12 +87,12 @@ public class RoleController extends BaseController {
     }
 
     @RequestMapping("/getListByPage")
-    public ResponseData<Role> getListByPage(Integer page, Integer pageSize) {
-        ResponseData<Role> response = new ResponseData<>();
+    public ResponseData<Permission> getListByPage(Integer page, Integer pageSize) {
+        ResponseData<Permission> response = new ResponseData<>();
         try {
-            Page<Role> roles =  roleService.getListByPage(page-1, pageSize);
+            Page<Permission> permissions =  permissionService.getListByPage(page-1, pageSize);
             response.setCode(1);
-            response.setDatas(roles);
+            response.setDatas(permissions);
             response.setMsg("查询成功!");
         } catch (Exception e) {
             response.setCode(0);
@@ -97,4 +101,5 @@ public class RoleController extends BaseController {
         }
         return response;
     }
+
 }
